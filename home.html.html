@@ -20,6 +20,7 @@
    /* Scrollbar styling for WebKit browsers */
    ::-webkit-scrollbar {
      width: 8px;
+     height: 8px;
    }
    ::-webkit-scrollbar-track {
      background: transparent;
@@ -32,6 +33,13 @@
    /* Scrollbar styling for Firefox */
    scrollbar-width: thin;
    scrollbar-color: white transparent;
+
+   /* For horizontal scrollbar on mobile (if any) */
+   ::-webkit-scrollbar-thumb:horizontal {
+     background-color: white;
+     border-radius: 4px;
+     transition: background-color 0.3s ease;
+   }
 
    .fade-out {
       animation: fadeOut 1s forwards;
@@ -256,7 +264,7 @@ was the one that lied.</p>
    function applyScrollbarColor(colorKey) {
      const color = scrollbarColors[colorKey] || '#ffffff';
 
-     // Update scrollbar thumb color for WebKit browsers
+     // Update scrollbar thumb color for WebKit browsers (vertical and horizontal)
      const styleId = 'dynamic-scrollbar-style';
      let styleTag = document.getElementById(styleId);
      if (!styleTag) {
@@ -266,6 +274,10 @@ was the one that lied.</p>
      }
      styleTag.textContent = `
        ::-webkit-scrollbar-thumb {
+         background-color: ${color} !important;
+         border-radius: 4px;
+       }
+       ::-webkit-scrollbar-thumb:horizontal {
          background-color: ${color} !important;
          border-radius: 4px;
        }
