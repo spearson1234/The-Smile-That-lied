@@ -15,6 +15,7 @@
       color: white;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      transition: color 0.3s ease, background-color 0.3s ease;
     }
    /* Scrollbar styling for WebKit browsers */
    ::-webkit-scrollbar {
@@ -26,6 +27,7 @@
    ::-webkit-scrollbar-thumb {
      background-color: white;
      border-radius: 4px;
+     transition: background-color 0.3s ease;
    }
    /* Scrollbar styling for Firefox */
    scrollbar-width: thin;
@@ -55,9 +57,19 @@
     }
   </style>
  </head>
- <body class="flex items-center justify-center min-h-screen p-4 relative">
+ <body class="flex items-center justify-center min-h-screen p-4 relative bg-black">
+
   <div id="topLeftLogo" class="absolute top-8 left-4 text-[#f5f0e6] select-none hidden" aria-label="Icon of a theatrical mask with a sad smile and tears, cream colored details on black background" role="img">
    <i class="fas fa-theater-masks"></i>
+  </div>
+
+  <div class="absolute top-8 right-4 flex space-x-4 text-[#f5f0e6] text-2xl sm:text-3xl">
+    <button id="infoBtn" aria-label="Show updates information" class="focus:outline-none" title="Updates">
+      <i class="fas fa-info-circle"></i>
+    </button>
+    <button id="settingsBtn" aria-label="Open settings" class="focus:outline-none" title="Settings">
+      <i class="fas fa-cog"></i>
+    </button>
   </div>
 
   <div id="content" class="text-center text-white max-w-xs sm:max-w-sm">
@@ -77,9 +89,57 @@
     <p class="text-[3.5rem] sm:text-[4.5rem] font-semibold tracking-tight mb-1">
      LIED
     </p>
-    <p class="text-sm sm:text-base font-light tracking-wide text-[#f5f0e6]">
-     When the Rain Fell
-    </p>
+   </div>
+  </div>
+
+  <div id="infoFrame" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm flex flex-col max-w-xl mx-auto p-6 rounded-lg shadow-lg text-white text-sm sm:text-base leading-relaxed overflow-y-auto max-h-[80vh] z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="infoTitle" aria-describedby="infoDesc">
+   <div class="flex justify-between items-center mb-4">
+    <h2 id="infoTitle" class="text-2xl font-semibold">Updates</h2>
+    <button id="infoCloseBtn" aria-label="Close updates information" class="text-white text-2xl focus:outline-none">
+     <i class="fas fa-times"></i>
+    </button>
+   </div>
+   <div id="infoDesc" class="space-y-4">
+    <ul class="list-disc list-inside space-y-2">
+      <li>Version 1.2 released: Improved mobile responsiveness and smoother page transitions.</li>
+      <li>Added new content pages coming soon – stay tuned!</li>
+      <li>Bug fixes related to navigation buttons on smaller screens.</li>
+    </ul>
+    <p class="mt-6 italic">Customizable scrollbar thumb colors via the settings panel.</p>
+   </div>
+  </div>
+
+  <div id="settingsFrame" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm flex flex-col max-w-xl mx-auto p-6 rounded-lg shadow-lg text-white text-sm sm:text-base leading-relaxed overflow-y-auto max-h-[80vh] z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" aria-describedby="settingsDesc">
+   <div class="flex justify-between items-center mb-4">
+    <h2 id="settingsTitle" class="text-2xl font-semibold">Settings</h2>
+    <button id="settingsCloseBtn" aria-label="Close settings" class="text-white text-2xl focus:outline-none">
+     <i class="fas fa-times"></i>
+    </button>
+   </div>
+   <div id="settingsDesc" class="space-y-6">
+    <div>
+      <label for="colorSelect" class="block mb-2 font-semibold">Select Scrollbar Thumb Color:</label>
+      <select id="colorSelect" class="w-full p-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        <option value="white" selected>White (default)</option>
+        <option value="cyan">Cyan</option>
+        <option value="lime">Lime</option>
+        <option value="rose">Rose</option>
+        <option value="amber">Amber</option>
+        <option value="violet">Violet</option>
+      </select>
+    </div>
+    <div>
+      <label for="textColorSelect" id="textColorLabel" class="block mb-2 font-semibold text-gray-400 cursor-not-allowed">Select Text Color: <span class="text-xs italic">(Coming Soon - May 30th)</span></label>
+      <select id="textColorSelect" disabled class="w-full p-2 rounded bg-gray-700 text-gray-400 cursor-not-allowed" title="Coming Soon - May 30th">
+        <option>White (default)</option>
+        <option>Cyan</option>
+        <option>Lime</option>
+        <option>Rose</option>
+        <option>Amber</option>
+        <option>Violet</option>
+      </select>
+    </div>
+    <p id="textColorNote" class="text-sm italic">Changing the scrollbar color updates the scrollbar thumb throughout the app. Text color customization will be available soon.</p>
    </div>
   </div>
 
@@ -151,6 +211,105 @@ was the one that lied.</p>
    const secondPageText = document.getElementById('secondPageText');
    const thirdPageText = document.getElementById('thirdPageText');
    const fourthPageText = document.getElementById('fourthPageText');
+   const infoBtn = document.getElementById('infoBtn');
+   const infoFrame = document.getElementById('infoFrame');
+   const infoCloseBtn = document.getElementById('infoCloseBtn');
+   const settingsBtn = document.getElementById('settingsBtn');
+   const settingsFrame = document.getElementById('settingsFrame');
+   const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+   const colorSelect = document.getElementById('colorSelect');
+   const textColorSelect = document.getElementById('textColorSelect');
+   const textColorLabel = document.getElementById('textColorLabel');
+   const textColorNote = document.getElementById('textColorNote');
+
+   // Real current date
+   const today = new Date();
+
+   // Enable or disable text color select based on date
+   function updateTextColorFeature() {
+     const releaseDate = new Date(today.getFullYear(), 4, 30); // May 30th (month 4 = May)
+     if (today >= releaseDate) {
+       textColorSelect.disabled = false;
+       textColorSelect.classList.remove('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
+       textColorSelect.classList.add('bg-gray-800', 'text-white', 'cursor-auto');
+       textColorLabel.classList.remove('text-gray-400', 'cursor-not-allowed');
+       textColorNote.textContent = 'Changing the text color updates the text color throughout the app.';
+     } else {
+       textColorSelect.disabled = true;
+       textColorSelect.classList.add('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
+       textColorSelect.classList.remove('bg-gray-800', 'text-white', 'cursor-auto');
+       textColorLabel.classList.add('text-gray-400', 'cursor-not-allowed');
+       textColorNote.textContent = 'Text color customization will be available soon.';
+     }
+   }
+
+   // Apply scrollbar thumb color
+   const scrollbarColors = {
+     white: '#ffffff',
+     cyan: '#22d3ee',
+     lime: '#a3e635',
+     rose: '#fb7185',
+     amber: '#fbbf24',
+     violet: '#a78bfa'
+   };
+
+   function applyScrollbarColor(colorKey) {
+     const color = scrollbarColors[colorKey] || '#ffffff';
+
+     // Update scrollbar thumb color for WebKit browsers
+     const styleId = 'dynamic-scrollbar-style';
+     let styleTag = document.getElementById(styleId);
+     if (!styleTag) {
+       styleTag = document.createElement('style');
+       styleTag.id = styleId;
+       document.head.appendChild(styleTag);
+     }
+     styleTag.textContent = `
+       ::-webkit-scrollbar-thumb {
+         background-color: ${color} !important;
+         border-radius: 4px;
+       }
+     `;
+
+     // Update scrollbar color for Firefox
+     document.documentElement.style.setProperty('scrollbar-color', `${color} transparent`);
+   }
+
+   // Apply text color throughout the app
+   const textColors = {
+     white: '#ffffff',
+     cyan: '#22d3ee',
+     lime: '#a3e635',
+     rose: '#fb7185',
+     amber: '#fbbf24',
+     violet: '#a78bfa'
+   };
+
+   function applyTextColor(colorKey) {
+     const color = textColors[colorKey] || '#ffffff';
+     document.body.style.color = color;
+     // Also update all text inside content and pages
+     const textContainers = [document.getElementById('content'), document.getElementById('secondPageText'), document.getElementById('thirdPageText'), document.getElementById('fourthPageText')];
+     textContainers.forEach(container => {
+       if (container) container.style.color = color;
+     });
+   }
+
+   // Initialize colors
+   applyScrollbarColor('white');
+   applyTextColor('white');
+   updateTextColorFeature();
+
+   // Event listeners
+   colorSelect.addEventListener('change', (e) => {
+     applyScrollbarColor(e.target.value);
+   });
+
+   textColorSelect.addEventListener('change', (e) => {
+     if (!textColorSelect.disabled) {
+       applyTextColor(e.target.value);
+     }
+   });
 
    // States: 0 = first page, 1 = second page, 2 = third page, 3 = fourth page
    let currentPage = 0;
@@ -164,6 +323,9 @@ was the one that lied.</p>
      topLeftLogo.classList.add('hidden');
      arrowBtnLeft.classList.add('hidden');
      arrowBtnRight.classList.remove('hidden');
+     infoBtn.style.display = 'none';
+     infoFrame.classList.add('hidden');
+     settingsFrame.classList.add('hidden');
 
      if (page === 0) {
        content.style.display = 'block';
@@ -171,6 +333,7 @@ was the one that lied.</p>
        content.classList.add('fade-in');
        arrowBtnRight.classList.remove('hidden');
        arrowBtnLeft.classList.add('hidden');
+       infoBtn.style.display = 'block';
      } else if (page === 1) {
        secondPageText.style.display = 'block';
        secondPageText.classList.remove('fade-out');
@@ -209,6 +372,48 @@ was the one that lied.</p>
      if (currentPage > 0) {
        currentPage--;
        showPage(currentPage);
+     }
+   });
+
+   infoBtn.addEventListener('click', () => {
+     infoFrame.classList.remove('hidden');
+     infoFrame.classList.add('fade-in');
+     settingsFrame.classList.add('hidden');
+     // Disable scrolling behind the info frame
+     document.body.style.overflow = 'hidden';
+   });
+
+   infoCloseBtn.addEventListener('click', () => {
+     infoFrame.classList.add('hidden');
+     // Re-enable scrolling
+     document.body.style.overflow = '';
+   });
+
+   settingsBtn.addEventListener('click', () => {
+     settingsFrame.classList.remove('hidden');
+     settingsFrame.classList.add('fade-in');
+     infoFrame.classList.add('hidden');
+     // Disable scrolling behind the settings frame
+     document.body.style.overflow = 'hidden';
+   });
+
+   settingsCloseBtn.addEventListener('click', () => {
+     settingsFrame.classList.add('hidden');
+     // Re-enable scrolling
+     document.body.style.overflow = '';
+   });
+
+   // Close info or settings frame on Escape key press
+   window.addEventListener('keydown', (e) => {
+     if (e.key === 'Escape') {
+       if (!infoFrame.classList.contains('hidden')) {
+         infoFrame.classList.add('hidden');
+         document.body.style.overflow = '';
+       }
+       if (!settingsFrame.classList.contains('hidden')) {
+         settingsFrame.classList.add('hidden');
+         document.body.style.overflow = '';
+       }
      }
    });
 
