@@ -63,95 +63,85 @@
         visibility: visible;
       }
     }
+
+   /* Credits scroll animation */
+   @keyframes creditsScroll {
+     0% {
+       transform: translateY(100%);
+       opacity: 1;
+     }
+     100% {
+       transform: translateY(-150%);
+       opacity: 1;
+     }
+   }
+   #creditsContent {
+     animation: creditsScroll 30s linear forwards;
+   }
   </style>
  </head>
- <body class="flex items-center justify-center min-h-screen p-4 relative bg-black">
-
-  <div id="topLeftLogo" class="absolute top-8 left-4 text-[#f5f0e6] select-none hidden" aria-label="Icon of a theatrical mask with a sad smile and tears, cream colored details on black background" role="img">
+ <body class="flex items-center justify-center min-h-screen p-4 relative bg-black overflow-hidden">
+  <div aria-label="Icon of a theatrical mask with a sad smile and tears, cream colored details on black background" class="absolute top-8 left-4 text-[#f5f0e6] select-none hidden" id="topLeftLogo" role="img">
    <i class="fas fa-theater-masks"></i>
   </div>
-
   <div class="absolute top-8 right-4 flex space-x-4 text-[#f5f0e6] text-2xl sm:text-3xl">
-    <button id="infoBtn" aria-label="Show updates information" class="focus:outline-none" title="Updates">
-      <i class="fas fa-info-circle"></i>
-    </button>
-    <button id="settingsBtn" aria-label="Open settings" class="focus:outline-none" title="Settings">
-      <i class="fas fa-cog"></i>
-    </button>
+   <button aria-label="Show updates information" class="focus:outline-none" id="infoBtn" title="Updates">
+    <i class="fas fa-info-circle"></i>
+   </button>
+   <button aria-label="Open settings" class="focus:outline-none" id="settingsBtn" title="Settings">
+    <i class="fas fa-cog"></i>
+   </button>
   </div>
-
-  <div id="content" class="text-center text-white max-w-xs sm:max-w-sm">
-   <div id="mainLogo" class="mx-auto mb-6 w-64 sm:w-80 text-center text-9xl sm:text-[10rem] leading-none select-none" aria-label="Icon of a theatrical mask with a sad smile and tears, cream colored details on black background" role="img" style="color:#f5f0e6;">
+  <div class="text-center text-white max-w-xs sm:max-w-sm" id="content">
+   <div aria-label="Icon of a theatrical mask with a sad smile and tears, cream colored details on black background" class="mx-auto mb-6 w-64 sm:w-80 text-center text-9xl sm:text-[10rem] leading-none select-none" id="mainLogo" role="img" style="color:#f5f0e6;">
     <i class="fas fa-theater-masks"></i>
    </div>
    <div class="leading-none">
-    <p class="text-[1.25rem] sm:text-[1.5rem] font-normal tracking-wide mb-1">
-     THE
-    </p>
-    <p class="text-[3.5rem] sm:text-[4.5rem] font-semibold tracking-tight mb-1">
-     SMILE
-    </p>
-    <p class="text-[1.25rem] sm:text-[1.5rem] font-normal tracking-wide mb-1">
-     THAT
-    </p>
-    <p class="text-[3.5rem] sm:text-[4.5rem] font-semibold tracking-tight mb-1">
-     LIED
-    </p>
+    <p class="text-[1.25rem] sm:text-[1.5rem] font-normal tracking-wide mb-1">THE</p>
+    <p class="text-[3.5rem] sm:text-[4.5rem] font-semibold tracking-tight mb-1">SMILE</p>
+    <p class="text-[1.25rem] sm:text-[1.5rem] font-normal tracking-wide mb-1">THAT</p>
+    <p class="text-[3.5rem] sm:text-[4.5rem] font-semibold tracking-tight mb-1">LIED</p>
    </div>
   </div>
-
-  <div id="infoFrame" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm flex flex-col max-w-xl mx-auto p-6 rounded-lg shadow-lg text-white text-sm sm:text-base leading-relaxed overflow-y-auto max-h-[80vh] z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="infoTitle" aria-describedby="infoDesc">
+  <div aria-describedby="infoDesc" aria-labelledby="infoTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm flex flex-col max-w-xl mx-auto p-6 rounded-lg shadow-lg text-white text-sm sm:text-base leading-relaxed overflow-y-auto max-h-[80vh] z-50 hidden" id="infoFrame" role="dialog">
    <div class="flex justify-between items-center mb-4">
-    <h2 id="infoTitle" class="text-2xl font-semibold">Updates</h2>
-    <button id="infoCloseBtn" aria-label="Close updates information" class="text-white text-2xl focus:outline-none">
+    <h2 class="text-2xl font-semibold" id="infoTitle">Updates</h2>
+    <button aria-label="Close updates information" class="text-white text-2xl focus:outline-none" id="infoCloseBtn">
      <i class="fas fa-times"></i>
     </button>
    </div>
-   <div id="infoDesc" class="space-y-4">
+   <div class="space-y-4" id="infoDesc">
     <ul class="list-disc list-inside space-y-2">
-      <li>Version 1.2 released: Improved mobile responsiveness and smoother page transitions.</li>
-      <li>Added new content pages coming soon – stay tuned!</li>
-      <li>Bug fixes related to navigation buttons on smaller screens.</li>
+     <li>Version 1.2 released: Improved mobile responsiveness and smoother page transitions.</li>
+     <li>Added new content pages coming soon – stay tuned!</li>
+     <li>Bug fixes related to navigation buttons on smaller screens.</li>
     </ul>
-    <p class="mt-6 italic">Customizable scrollbar thumb colors via the settings panel.</p>
+    <p class="mt-6 italic">Text color customization will be available soon (May 30th).</p>
    </div>
   </div>
-
-  <div id="settingsFrame" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm flex flex-col max-w-xl mx-auto p-6 rounded-lg shadow-lg text-white text-sm sm:text-base leading-relaxed overflow-y-auto max-h-[80vh] z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" aria-describedby="settingsDesc">
+  <div aria-describedby="settingsDesc" aria-labelledby="settingsTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm flex flex-col max-w-xl mx-auto p-6 rounded-lg shadow-lg text-white text-sm sm:text-base leading-relaxed overflow-y-auto max-h-[80vh] z-50 hidden" id="settingsFrame" role="dialog">
    <div class="flex justify-between items-center mb-4">
-    <h2 id="settingsTitle" class="text-2xl font-semibold">Settings</h2>
-    <button id="settingsCloseBtn" aria-label="Close settings" class="text-white text-2xl focus:outline-none">
+    <h2 class="text-2xl font-semibold" id="settingsTitle">Settings</h2>
+    <button aria-label="Close settings" class="text-white text-2xl focus:outline-none" id="settingsCloseBtn">
      <i class="fas fa-times"></i>
     </button>
    </div>
-   <div id="settingsDesc" class="space-y-6">
+   <div class="space-y-6" id="settingsDesc">
     <div>
-      <label for="colorSelect" class="block mb-2 font-semibold">Select Scrollbar Thumb Color:</label>
-      <select id="colorSelect" class="w-full p-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
-        <option value="white" selected>White (default)</option>
-        <option value="cyan">Cyan</option>
-        <option value="lime">Lime</option>
-        <option value="rose">Rose</option>
-        <option value="amber">Amber</option>
-        <option value="violet">Violet</option>
-      </select>
+     <label class="block mb-2 font-semibold text-gray-400 cursor-not-allowed" for="textColorSelect" id="textColorLabel">Select Text Color: <span class="text-xs italic">(Available May 30th)</span></label>
+     <select class="w-full p-2 rounded bg-gray-700 text-gray-400 cursor-not-allowed" disabled id="textColorSelect" title="Available May 30th">
+      <option>White (default)</option>
+      <option>Cyan</option>
+      <option>Lime</option>
+      <option>Rose</option>
+      <option>Amber</option>
+      <option>Violet</option>
+     </select>
     </div>
-    <div>
-      <label for="textColorSelect" id="textColorLabel" class="block mb-2 font-semibold text-gray-400 cursor-not-allowed">Select Text Color: <span class="text-xs italic">(Coming Soon - May 30th)</span></label>
-      <select id="textColorSelect" disabled class="w-full p-2 rounded bg-gray-700 text-gray-400 cursor-not-allowed" title="Coming Soon - May 30th">
-        <option>White (default)</option>
-        <option>Cyan</option>
-        <option>Lime</option>
-        <option>Rose</option>
-        <option>Amber</option>
-        <option>Violet</option>
-      </select>
-    </div>
-    <p id="textColorNote" class="text-sm italic">Changing the scrollbar color updates the scrollbar thumb throughout the app. Text color customization will be available soon.</p>
+    <p class="text-sm italic" id="textColorNote">Text color customization will be available soon.</p>
    </div>
   </div>
-
-  <div id="secondPageText" class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]">
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="secondPageText">
    <p class="mb-4">A Saturday night, Aria got a text from her boyfriend. Just six words, sitting quietly on her screen: <q>Can we talk? It’s important.</q></p>
    <p class="mb-4">Her heart didn’t race — it dropped. She stared at the message for a long moment, already knowing that nothing good ever started with those words. Outside, the city buzzed with weekend laughter, but inside her apartment, everything felt too still. She typed <q>Sure.</q> then deleted it. Typed <q>What’s wrong?</q> then deleted that too.</p>
    <p class="mb-4">Finally, she left him on read — like silence might protect her from what was coming.</p>
@@ -166,8 +156,7 @@
    <p class="mb-4">The music pulsed, laughter rose around her, and someone bumped into her shoulder with a clumsy <q>Cheers!</q> But Aria just smiled, nodding along, the same way she always did.</p>
    <p>The smile wasn’t real.<br/>It never really was.</p>
   </div>
-
-  <div id="thirdPageText" class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]">
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="thirdPageText">
    <p class="mb-4">After a long night out with her mates, Aria said her goodbyes and stepped out into the cool night air. The streets were quieter now, a breeze brushing past her as if the world already knew what was coming.</p>
    <p class="mb-4">She stared at her phone for a moment before finally tapping his name and hitting call. The ringing felt louder than it should.</p>
    <p class="mb-4">“Hey,” she said when he picked up. Her voice was soft, unsure. “Uhm… you said you wanted to talk?”</p>
@@ -180,8 +169,7 @@
    <p class="mb-4">“Goodbye, Aria. Take care.”</p>
    <p class="mb-4">The call ended before she could say anything else. Just a cold silence where warmth used to be.</p>
   </div>
-
-  <div id="fourthPageText" class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]">
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="fourthPageText">
    <p class="mb-4">She stood there as the rain began to fall — soft at first, then heavier, like the sky was mourning with her.</p>
    <p class="mb-4">Tears slipped down her face, warm against the cold drops. She didn’t wipe them away. Didn’t move. Just stood still as the world blurred around her.</p>
    <p class="mb-4">Eventually, she began walking, slowly, aimlessly, her clothes soaked and heavy. Streetlights shimmered through the rain, painting the pavement gold and lonely.</p>
@@ -195,15 +183,11 @@
    <p class="mb-4">And that’s what she did. She cried.</p>
    <p class="mb-4">All night.</p>
    <p class="mb-4">Until the morning light crawled through the blinds and found her still there, eyes swollen, voice gone, heart shattered — and no more tears left to give.</p>
-   <p class="mb-4">Everyone thought she was fine.<br/>
-She laughed, showed up, smiled.</p>
-   <p class="mb-4">But no one saw the nights she didn’t sleep.<br/>
-No one heard the screams she swallowed.</p>
-   <p class="mb-4">Because the smile she wore...<br/>
-was the one that lied.</p>
+   <p class="mb-4">Everyone thought she was fine.<br/>She laughed, showed up, smiled.</p>
+   <p class="mb-4">But no one saw the nights she didn’t sleep.<br/>No one heard the screams she swallowed.</p>
+   <p class="mb-4">Because the smile she wore...<br/>was the one that lied.</p>
   </div>
-
-  <div id="fifthPageText" class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]">
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="fifthPageText">
    <h2 class="text-3xl sm:text-4xl font-semibold mb-6 text-center">Chapter 2</h2>
    <p class="mb-4 font-semibold text-xl">The Silence Between Heartbeats</p>
    <p class="mb-4">“Aria. Aria… where the hell is this girl?”</p>
@@ -219,8 +203,7 @@ was the one that lied.</p>
    <p class="mb-4">She pushed the door open slowly.</p>
    <p class="mb-4">Aria was there.</p>
   </div>
-
-  <div id="sixthPageText" class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]">
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="sixthPageText">
    <p class="mb-4 font-semibold text-xl">In the bathtub.</p>
    <p class="mb-4">Still. Silent. Surrounded by water gone lukewarm, her arms resting limply on either side. Eyes open but empty.</p>
    <p class="mb-4">Lana’s heart jumped to her throat.</p>
@@ -233,9 +216,7 @@ was the one that lied.</p>
    <p class="mb-4">“I’m here now,” she said softly. “Okay? I’m here.”</p>
    <p class="mb-4">They stayed there in silence — the kind that held all the pain words couldn’t.</p>
   </div>
-
-  <div id="seventhPageText" class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]">
-   <p class="mb-4 font-semibold text-xl">HOSPITAL — EMERGENCY ROOM — NIGHT</p>
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="seventhPageText">
    <p class="mb-4">The doors slammed open with a violent whoosh, rain still dripping from Lana’s soaked hoodie. Her arms gripped tightly around Aria, who was barely conscious, her skin pale, lips a muted blue.</p>
    <p class="mb-4">“Someone help! Please!” Lana shouted, her voice cracking under the weight of panic.</p>
    <p class="mb-4">Nurses rushed toward them with a gurney.</p>
@@ -251,19 +232,51 @@ was the one that lied.</p>
    <p class="mb-4">“No! I—I have to be with her!” Lana pleaded.</p>
    <p class="mb-4">The double doors slammed shut between them, a loud metallic thud that echoed in her chest.</p>
   </div>
-
-  <div id="eighthPageText" class="hidden max-w-xl mx-auto text-center text-white text-4xl sm:text-6xl font-semibold leading-relaxed px-4 sm:px-0 flex items-center justify-center max-h-[80vh]">
-   To Be continued
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="eighthPageText">
+   <p class="mb-4">“Hey Mum, uhm... I'm just at the hospital with Aria, but everything is okay. Give me a call back... bye.”</p>
+   <p class="mb-4">Lana ended the voice message and lowered her phone, staring blankly at the floor for a moment before slipping it into her pocket.</p>
+   <p class="mb-4">The hospital waiting room was far too quiet for the storm inside her chest. She paced the length of the corridor, arms crossed, fingers digging into the fabric of her sleeves. The sterile smell, the low hum of fluorescent lights, the distant beeping from behind closed doors — it all felt surreal.</p>
+   <p class="mb-4">She hated this place.</p>
+   <p class="mb-4">She hated being here for this.</p>
+   <p class="mb-4">She sat down, only to stand again seconds later. Still pacing. Still helpless.</p>
+   <p class="mb-4">And then the thought finally broke her:</p>
+   <p class="mb-4">“Why did she do this to herself?” she whispered, almost as if saying it out loud might make it make sense. “I thought everything was okay... she was smiling. Laughing. Having a great time…”</p>
+   <p class="mb-4">Her voice cracked on the last word.</p>
+   <p class="mb-4">She sank into a chair, her body folding in on itself. Hands gripped her hair, elbows on her knees, guilt sinking in like heavy rain.</p>
+   <p class="mb-4">“I should’ve seen it. I should’ve known…”</p>
+   <p class="mb-4">She thought of the party the week before. The way Aria had danced, laughed, toasted shots with her. That smile — the same one she’d worn for months now.</p>
+   <p class="mb-4">That same damn smile.</p>
+   <p class="mb-4">Lana swallowed hard. “Was it all fake?” she asked the silence.</p>
+   <p class="mb-4">She remembered how Aria brushed off questions about her ex, how she always said, “I’m fine,” too quickly, too easily. How she changed the subject. How she flinched when certain songs played.</p>
+   <p class="mb-4">All the signs had been there.</p>
+   <p class="mb-4">She just hadn’t looked deep enough.</p>
   </div>
-
-  <button id="arrowBtnLeft" aria-label="Previous page" class="absolute bottom-12 left-4 text-white text-xl sm:text-2xl focus:outline-none hidden">
-   <i class="fas fa-arrow-left" aria-hidden="true"></i>
+  <div class="hidden max-w-xl mx-auto text-left text-white text-sm sm:text-base leading-relaxed px-4 sm:px-0 overflow-y-auto max-h-[80vh]" id="ninthPageText">
+   <p class="mb-4">Lana sat in the quiet waiting room, staring at the closed door Aria had disappeared behind. Machines beeped softly through the walls. Time moved slow.</p>
+   <p class="mb-4">She wiped her eyes, but the weight in her chest didn’t go anywhere.</p>
+   <p class="mb-4">“I’m sorry I didn’t see it,” she whispered. “I’m so sorry, Aria.”</p>
+   <p class="mb-4">And behind that door, beneath pale hospital lights and tangled IV lines, Aria slept — or maybe just hid — from a world that had hurt her too deeply.</p>
+   <p class="mb-4">No one knew what tomorrow would look like. Not yet.</p>
+   <p class="mb-4">But one thing was certain.</p>
+   <p class="mb-4">The smile that lied had finally broken.</p>
+   <p class="mb-4">And maybe… that was the first step toward finally telling the truth.</p>
+  </div>
+  <div class="hidden absolute inset-0 flex items-center justify-center bg-black text-white overflow-hidden z-40" id="creditsPage">
+   <div class="max-w-xl text-center text-xl sm:text-2xl leading-relaxed px-6 select-none" id="creditsContent">
+    <p class="mb-8 font-semibold text-3xl">Author: Smithy</p>
+    <p class="mb-8">This story explores the hidden pain behind a smile, the silent struggles of mental health, and the journey toward truth and healing.</p>
+    <p class="mb-4 font-semibold flex items-center justify-center space-x-3">
+     <img alt="Snapchat ghost logo, white on black background" class="w-8 h-8" height="32" src="https://storage.googleapis.com/a1aa/image/63d28b09-443e-459b-ec09-527812d496c9.jpg" width="32"/>
+     <span>spcarrot3</span>
+    </p>
+   </div>
+  </div>
+  <button aria-label="Previous page" class="absolute bottom-12 left-4 text-white text-xl sm:text-2xl focus:outline-none hidden" id="arrowBtnLeft">
+   <i class="fas fa-arrow-left"></i>
   </button>
-
-  <button id="arrowBtnRight" aria-label="Next page" class="absolute bottom-12 right-4 text-white text-xl sm:text-2xl focus:outline-none">
-   <i class="fas fa-arrow-right" aria-hidden="true"></i>
+  <button aria-label="Next page" class="absolute bottom-12 right-4 text-white text-xl sm:text-2xl focus:outline-none" id="arrowBtnRight">
+   <i class="fas fa-arrow-right"></i>
   </button>
-
   <script>
    const arrowBtnLeft = document.getElementById('arrowBtnLeft');
    const arrowBtnRight = document.getElementById('arrowBtnRight');
@@ -276,13 +289,14 @@ was the one that lied.</p>
    const sixthPageText = document.getElementById('sixthPageText');
    const seventhPageText = document.getElementById('seventhPageText');
    const eighthPageText = document.getElementById('eighthPageText');
+   const ninthPageText = document.getElementById('ninthPageText');
+   const creditsPage = document.getElementById('creditsPage');
    const infoBtn = document.getElementById('infoBtn');
    const infoFrame = document.getElementById('infoFrame');
    const infoCloseBtn = document.getElementById('infoCloseBtn');
    const settingsBtn = document.getElementById('settingsBtn');
    const settingsFrame = document.getElementById('settingsFrame');
    const settingsCloseBtn = document.getElementById('settingsCloseBtn');
-   const colorSelect = document.getElementById('colorSelect');
    const textColorSelect = document.getElementById('textColorSelect');
    const textColorLabel = document.getElementById('textColorLabel');
    const textColorNote = document.getElementById('textColorNote');
@@ -298,50 +312,16 @@ was the one that lied.</p>
        textColorSelect.classList.remove('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
        textColorSelect.classList.add('bg-gray-800', 'text-white', 'cursor-auto');
        textColorLabel.classList.remove('text-gray-400', 'cursor-not-allowed');
+       textColorLabel.innerHTML = 'Select Text Color:';
        textColorNote.textContent = 'Changing the text color updates the text color throughout the app.';
      } else {
        textColorSelect.disabled = true;
        textColorSelect.classList.add('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
        textColorSelect.classList.remove('bg-gray-800', 'text-white', 'cursor-auto');
        textColorLabel.classList.add('text-gray-400', 'cursor-not-allowed');
+       textColorLabel.innerHTML = 'Select Text Color: <span class="text-xs italic">(Available May 30th)</span>';
        textColorNote.textContent = 'Text color customization will be available soon.';
      }
-   }
-
-   // Apply scrollbar thumb color
-   const scrollbarColors = {
-     white: '#ffffff',
-     cyan: '#22d3ee',
-     lime: '#a3e635',
-     rose: '#fb7185',
-     amber: '#fbbf24',
-     violet: '#a78bfa'
-   };
-
-   function applyScrollbarColor(colorKey) {
-     const color = scrollbarColors[colorKey] || '#ffffff';
-
-     // Update scrollbar thumb color for WebKit browsers (vertical and horizontal)
-     const styleId = 'dynamic-scrollbar-style';
-     let styleTag = document.getElementById(styleId);
-     if (!styleTag) {
-       styleTag = document.createElement('style');
-       styleTag.id = styleId;
-       document.head.appendChild(styleTag);
-     }
-     styleTag.textContent = `
-       ::-webkit-scrollbar-thumb {
-         background-color: ${color} !important;
-         border-radius: 4px;
-       }
-       ::-webkit-scrollbar-thumb:horizontal {
-         background-color: ${color} !important;
-         border-radius: 4px;
-       }
-     `;
-
-     // Update scrollbar color for Firefox
-     document.documentElement.style.setProperty('scrollbar-color', `${color} transparent`);
    }
 
    // Apply text color throughout the app
@@ -358,18 +338,19 @@ was the one that lied.</p>
      const color = textColors[colorKey] || '#ffffff';
      document.body.style.color = color;
      // Also update all text inside content and pages
-     const textContainers = [document.getElementById('content'), document.getElementById('secondPageText'), document.getElementById('thirdPageText'), document.getElementById('fourthPageText'), document.getElementById('fifthPageText'), document.getElementById('sixthPageText'), document.getElementById('seventhPageText'), document.getElementById('eighthPageText')];
+     const textContainers = [content, secondPageText, thirdPageText, fourthPageText, fifthPageText, sixthPageText, seventhPageText, eighthPageText, ninthPageText];
      textContainers.forEach(container => {
        if (container) container.style.color = color;
      });
+     // Also update credits text color
+     creditsPage.style.color = color;
    }
 
-   // Initialize colors
-   applyScrollbarColor('white');
+   // Initialize text color to white
    applyTextColor('white');
    updateTextColorFeature();
 
-   // States: 0 = first page, 1 = second page, 2 = third page, 3 = fourth page, 4 = fifth page (Chapter 2), 5 = sixth page (bathtub), 6 = seventh page (hospital), 7 = eighth page (To Be continued)
+   // States: 0 = first page, 1 = second page, 2 = third page, 3 = fourth page, 4 = fifth page (Chapter 2), 5 = sixth page (bathtub), 6 = seventh page (hospital), 7 = eighth page (voice message), 8 = ninth page (new last page), 9 = credits
    let currentPage = 0;
 
    function showPage(page) {
@@ -382,6 +363,8 @@ was the one that lied.</p>
      sixthPageText.style.display = 'none';
      seventhPageText.style.display = 'none';
      eighthPageText.style.display = 'none';
+     ninthPageText.style.display = 'none';
+     creditsPage.style.display = 'none';
      topLeftLogo.classList.add('hidden');
      arrowBtnLeft.classList.add('hidden');
      arrowBtnRight.classList.remove('hidden');
@@ -445,18 +428,40 @@ was the one that lied.</p>
        arrowBtnLeft.classList.remove('hidden');
        arrowBtnRight.classList.remove('hidden');
      } else if (page === 7) {
-       eighthPageText.style.display = 'flex';
+       eighthPageText.style.display = 'block';
        eighthPageText.classList.remove('fade-out');
        eighthPageText.classList.add('fade-in');
        topLeftLogo.classList.remove('hidden');
        topLeftLogo.classList.add('text-4xl', 'sm:text-5xl');
        arrowBtnLeft.classList.remove('hidden');
+       arrowBtnRight.classList.remove('hidden');
+     } else if (page === 8) {
+       ninthPageText.style.display = 'block';
+       ninthPageText.classList.remove('fade-out');
+       ninthPageText.classList.add('fade-in');
+       topLeftLogo.classList.remove('hidden');
+       topLeftLogo.classList.add('text-4xl', 'sm:text-5xl');
+       arrowBtnLeft.classList.remove('hidden');
+       arrowBtnRight.classList.remove('hidden');
+     } else if (page === 9) {
+       creditsPage.style.display = 'flex';
+       creditsPage.classList.remove('fade-out');
+       creditsPage.classList.add('fade-in');
+       topLeftLogo.classList.remove('hidden');
+       topLeftLogo.classList.add('text-4xl', 'sm:text-5xl');
+       arrowBtnLeft.classList.remove('hidden');
        arrowBtnRight.classList.add('hidden');
+       // Restart animation
+       const creditsContent = document.getElementById('creditsContent');
+       creditsContent.style.animation = 'none';
+       // Trigger reflow to restart animation
+       void creditsContent.offsetWidth;
+       creditsContent.style.animation = null;
      }
    }
 
    arrowBtnRight.addEventListener('click', () => {
-     if (currentPage < 7) {
+     if (currentPage < 9) {
        currentPage++;
        showPage(currentPage);
      }
@@ -509,6 +514,11 @@ was the one that lied.</p>
          document.body.style.overflow = '';
        }
      }
+   });
+
+   // Disable text color change event since disabled until May 30th
+   textColorSelect.addEventListener('change', () => {
+     // No action, disabled until May 30th
    });
 
    // Initialize first page
